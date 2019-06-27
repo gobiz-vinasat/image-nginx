@@ -1,8 +1,7 @@
-FROM nginx:1.15.12
+FROM nginx:1.17
 
-RUN echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list \
-  && echo "deb-src http://deb.debian.org/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list \
+# Install certbot
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
-    certbot python-certbot-nginx -t stretch-backports \
-  && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y certbot python-certbot-nginx -t stretch-backports \
+  && apt-get install -y python3-certbot-dns-cloudflare
